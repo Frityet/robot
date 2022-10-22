@@ -8,12 +8,10 @@
 
 #include <time.h>
 
-#define var __auto_type
-
 //Returns the object dereferenced if not null
 #define NN(x) ({ \
     typedef __typeof__(*(x)) Func_t; \
-    Func_t *default_fn = (Func_t *)$(int64_t, (){ return 0; }); \
+    Func_t *default_fn = (Func_t *)$(int64_t, (), { return 0; }); \
     (x) == NULL ? default_fn : (x);\
 })
 
@@ -34,9 +32,9 @@ static bool get_digitals(struct Controller_DigitalActionGroup group[static 1], c
     return any_active;
 }
 
-void collect_controller_input(struct ControllerConfig controller[static 1])
+task_t collect_controller_input(struct ControllerConfig arg[static 1])
 {
-//    return task_create($(void, (struct ControllerConfig controller[static 1]) {
+    return task_create((void *)$(void, (struct ControllerConfig controller[static 1]), {
 
         controller_clear_line(E_CONTROLLER_MASTER, 0);
         controller_print(E_CONTROLLER_MASTER, 0, 0, "Created task");
@@ -57,5 +55,5 @@ void collect_controller_input(struct ControllerConfig controller[static 1])
             for (int i = 0; i < 4; i++)
                 NN(controller->actions.analog.actions[i])(controller_get_analog(E_CONTROLLER_MASTER, i));
         }
-//    }), controller, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Controller task");
+    }), arg, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Controller task");
 }

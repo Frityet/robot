@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "common.h"
+#include "src/common.h"
 
 static const struct {
     byte controller, intake[2], flywheel[2];

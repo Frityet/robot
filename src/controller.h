@@ -48,8 +48,8 @@ enum ControllerActionGroupType {
     ControllerActionGroup_COUNT     = 4,
 };
 
-typedef void AnalogControllerAction_f(bool (*active)[4], int32 value);
-typedef void DigitalControllerAction_f(bool (*active)[4]);
+typedef void AnalogControllerAction_f(int32 value);
+typedef void DigitalControllerAction_f(void);
 
 struct ControllerConfig {
     byte port;
@@ -57,14 +57,12 @@ struct ControllerConfig {
     struct {
         //one analog (stick) action group
         struct {
-            bool active[4];
             AnalogControllerAction_f *actions[ControllerActionGroup_COUNT];
         } analog;
 
         //three digital (button) action groups
         struct Controller_DigitalActionGroup {
-            void (*on_all_off)(void);
-            bool active[4];
+            DigitalControllerAction_f *all_off;
             struct {
                 DigitalControllerAction_f *on, *off;
             } actions[ControllerActionGroup_COUNT];

@@ -21,81 +21,82 @@ static void stop_launcher(time_t _)
     rev_launcher(0);
 }
 
-static void set_pneumatics(bool state)
-{
-    adi_port_set_config(PORTS.pneumatics, state);
-}
 
 
 noreturn void opcontrol()
 {
+    adi_port_set_config(PORTS.pneumatics, true);
+
     controller_print(E_CONTROLLER_MASTER, 0, 0, "Start this POS");
 
-    collect_controller_input(&(struct ControllerConfig){});
-//    collect_controller_input(&(struct ControllerConfig) {
-//        .port = PORTS.controller,
-//        .actions = {
-//            .analog = {
-//                .actions = {
-//                    [ControllerStick_LEFT_Y] = $(void, (bool (*active)[4], int32 val) {
-//                        motor_move(PORTS.drive.left.front, val);
-//                        motor_move(PORTS.drive.left.back, -val);
-//                    }),
-//
-//                    [ControllerStick_RIGHT_Y] = $(void, (bool (*active)[4], int32 val) {
-//                        motor_move(PORTS.drive.left.front, val);
-//                        motor_move(PORTS.drive.left.back, -val);
-//                    })
-//                }
-//            },
-//
-//            .digital = {
-//                [ControllerActionGroup_BUTTONS] = {
-//                    .actions = {
-//
-//                    }
-//                },
-//
-//                [ControllerActionGroup_ARROWS] = {
-//
-//                },
-//
-//                [ControllerActionGroup_BUMPERS] = {
-//                    .on_all_off = $(void, (){
-//                        rev_launcher(0);
-//                        controller_clear_line(E_CONTROLLER_MASTER, 0);
-//                        controller_print(E_CONTROLLER_MASTER, 0, 0, "Launcher off");
-//                    }),
-//
-//                    .actions = {
-//                        [ControllerBumper_L1] = {
-//                            .on = $(void, (bool (*active)[4]) {
-//                                rev_launcher(127);
-//                                controller_clear_line(E_CONTROLLER_MASTER, 0);
-//                                controller_print(E_CONTROLLER_MASTER, 0, 0, "Launcher at MAX");
-//                            }),
-//                        },
-//
-//                        [ControllerBumper_R1] = {
-//                            .on = $(void, (bool (*active)[4]) {
-//                                rev_launcher(127 / 2);
-//                                controller_clear_line(E_CONTROLLER_MASTER, 0);
-//                                controller_print(E_CONTROLLER_MASTER, 0, 0, "Launcher at half");
-//                            }),
-//                        },
-//
-//                        [ControllerBumper_R2] = {
-//                            .on = $(void, (bool (*active)[4]) {
-//                                rev_launcher(127 / 4);
-//                                controller_clear_line(E_CONTROLLER_MASTER, 0);
-//                                controller_print(E_CONTROLLER_MASTER, 0, 0, "Launcher at quarter");
-//                            }),
-//                        },
-//                    }
-//                }
-//            }
-//        }
-//    });
+    collect_controller_input(&(struct ControllerConfig) {
+        .port = PORTS.controller,
+        .actions = {
+            .analog = {
+                .actions = {
+                    [ControllerStick_LEFT_Y] = $(void, (bool (*active)[4], int32 val) {
+                        motor_move(PORTS.drive.left.front, -val);
+                        motor_move(PORTS.drive.left.back, val);
+                    }),
+
+                    [ControllerStick_RIGHT_Y] = $(void, (bool (*active)[4], int32 val) {
+                        motor_move(PORTS.drive.right.front, val);
+                        motor_move(PORTS.drive.right.back, -val);
+                    })
+                }
+            },
+
+            .digital = {
+                [ControllerActionGroup_BUTTONS] = {
+                    .actions = {
+                        [ControllerButton_A] = {
+                            .on = $(void, (bool active[static 4]) {
+//                                adi_port_set_value(PORTS.pneumatics, 100);
+//                                delay(1000);
+//                                adi_port_set_value(PORTS.pneumatics, 0);
+                            }),
+                        }
+                    }
+                },
+
+                [ControllerActionGroup_ARROWS] = {
+
+                },
+
+                [ControllerActionGroup_BUMPERS] = {
+                    .actions = {
+                        [ControllerBumper_L1] = {
+                            .on = $(void, (bool active[static 4]) {
+                                rev_launcher(127);
+                                controller_print(E_CONTROLLER_MASTER, 0, 0, "Launcher at MAX             ");
+                            }),
+                        },
+
+                        [ControllerBumper_L2] = {
+                            .on = $(void, (bool active[static 4]) {
+                                rev_launcher(0);
+                                controller_print(E_CONTROLLER_MASTER, 0, 0, "Launcher off             ");
+                            }),
+                        },
+
+                        [ControllerBumper_R1] = {
+                            .on = $(void, (bool active[static 4]) {
+                                rev_launcher(127 / 2);
+                                controller_print(E_CONTROLLER_MASTER, 0, 0, "Launcher at half              ");
+                            }),
+                        },
+
+                        [ControllerBumper_R2] = {
+                            .on = $(void, (bool active[static 4]) {
+                                rev_launcher(127 / 4);
+                                controller_print(E_CONTROLLER_MASTER, 0, 0, "Launcher at quarter          ");
+                            }),
+                        },
+                    }
+                }
+            }
+        }
+    });
 
     while (true);
 }

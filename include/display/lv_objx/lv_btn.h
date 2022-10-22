@@ -194,9 +194,9 @@ void lv_btn_set_style(lv_obj_t * btn, lv_btn_style_t type, lv_style_t *style);
 lv_btn_state_t lv_btn_get_state(const lv_obj_t * btn);
 
 /**
- * Get the toggle enable attribute of the button
+ * Get the is_toggle enable attribute of the button
  * @param btn pointer to a button object
- * @return ture: toggle enabled, false: disabled
+ * @return ture: is_toggle enabled, false: disabled
  */
 bool lv_btn_get_toggle(const lv_obj_t * btn);
 

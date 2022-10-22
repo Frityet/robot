@@ -100,7 +100,15 @@ static const struct {
 static const struct {
     uint32 wheel_radius;
     Point_t dimensions;
+    uint64 pneumatic_wait;
+    uint8 launcher_speeds[3];
 } ROBOT = {
    .wheel_radius = 4,
-   .dimensions = { 18, 25.5 }
+   .dimensions = { 18, 25.5 },
+   .pneumatic_wait = 256,
+   .launcher_speeds = {
+       90,
+       80,
+       70
+   }
 };

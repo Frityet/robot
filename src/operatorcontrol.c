@@ -14,8 +14,8 @@ void initialize()
     if (adi_port_set_config(PORTS.pneumatics, E_ADI_DIGITAL_OUT) == PROS_ERR) println(0, "ERROR, %s", strerror(errno));
     if (adi_port_set_config(PORTS.launcher, E_ADI_DIGITAL_OUT) == PROS_ERR) println(0, "ERROR, %s", strerror(errno));
 
-    adi_digital_write(PORTS.pneumatics, off);
-    adi_digital_write(PORTS.launcher, off);
+    adi_digital_write(PORTS.pneumatics, on);
+    adi_digital_write(PORTS.launcher, on);
 
     lcd_print(0, "Waheguru Waheguru Waheguru Ji,");
     lcd_print(1, "Satnam Satnam Satnam Ji");
@@ -51,7 +51,7 @@ noreturn void opcontrol()
                             .on = $(void, (), {
                                 println(2, "Pneumatics - On");
                                 adi_digital_write(PORTS.pneumatics, off);
-                                delay(1000);
+                                delay(ROBOT.pneumatic_wait);
                                 adi_digital_write(PORTS.pneumatics, on);
                                 println(2, "Pneumatics - Off");
                             }),
@@ -59,8 +59,8 @@ noreturn void opcontrol()
                         [ControllerButton_B] = {
                             .on = $(void, (), {
                                 println(1, "Intake - On");
-                                motor_move(PORTS.intake[0], 127);
-                                motor_move(PORTS.intake[1], 127);
+                                motor_move(PORTS.intake[0], 127.0);
+                                motor_move(PORTS.intake[1], 127.0);
                             }),
                         },
 
@@ -92,25 +92,25 @@ noreturn void opcontrol()
                     .actions = {
                         [ControllerBumper_L1] = {
                             .on = $(void, (), {
-                                motor_move(PORTS.flywheel[0], 127);
-                                motor_move(PORTS.flywheel[1], -127);
-                                println(0, "Launcher - Max");
+                                motor_move(PORTS.flywheel[0], (int8)(127.0 * (ROBOT.launcher_speeds[0] / 100.0)));
+                                motor_move(PORTS.flywheel[1], (int8)(-127.0 * (ROBOT.launcher_speeds[0] / 100.0)));
+                                println(0, "Launcher - %d%%", ROBOT.launcher_speeds[0]);
                             }),
                         },
 
                         [ControllerBumper_R1] = {
                             .on = $(void, (), {
-                                motor_move(PORTS.flywheel[0], 127 / 2);
-                                motor_move(PORTS.flywheel[1], -127 / 2);
-                                println(0, "Launcher - Half");
+                                motor_move(PORTS.flywheel[0], (int8)(127.0 * (ROBOT.launcher_speeds[1] / 100.0)));
+                                motor_move(PORTS.flywheel[1], (int8)(-127.0 * (ROBOT.launcher_speeds[1] / 100.0)));
+                                println(0, "Launcher - %d%%", ROBOT.launcher_speeds[1]);
                             }),
                         },
 
                         [ControllerBumper_R2] = {
                             .on = $(void, (), {
-                                motor_move(PORTS.flywheel[0], 127);
-                                motor_move(PORTS.flywheel[1], -127 / 4);
-                                println(0, "Launcher - Quarter");
+                                motor_move(PORTS.flywheel[0], (int8)(127.0 * (ROBOT.launcher_speeds[2] / 100.0)));
+                                motor_move(PORTS.flywheel[1], (int8)(-127.0 * (ROBOT.launcher_speeds[2] / 100.0)));
+                                println(0, "Launcher - %d%%", ROBOT.launcher_speeds[2]);
                             }),
                         },
 
@@ -118,7 +118,7 @@ noreturn void opcontrol()
                             .on = $(void, (), {
                                 motor_move(PORTS.flywheel[0], 0);
                                 motor_move(PORTS.flywheel[1], -0);
-                                println(0, "Launcher - Off");
+                                println(0, "Launcher - 0%%");
                             }),
                         },
                     }

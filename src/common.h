@@ -14,9 +14,9 @@
 //Clion refuses to work with local functions, so we have to make it think its using clang blocks
 #if !defined(_CLION_) || !(defined(__llvm__) && defined(__clang__))
 //If this project used an actual good compiler (clang) I would use blocks (like a sane person!)
-#   define $(ret, ...) ({ ret _fn_tmp __VA_ARGS__; _fn_tmp; })
+#   define lambda(ret, ...) ({ ret _fn_tmp __VA_ARGS__; _fn_tmp; })
 #else
-#   define $(ret, ...) ((void *)^ret __VA_ARGS__)
+#   define lambda(ret, ...) ((void *)^ret __VA_ARGS__)
 #endif
 
 typedef uint8_t     uint8;

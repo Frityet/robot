@@ -160,7 +160,7 @@ void lv_page_set_sb_mode(lv_obj_t * page, lv_sb_mode_t sb_mode);
 void lv_page_set_arrow_scroll(lv_obj_t * page, bool en);
 
 /**
- * Enable the scroll propagation feature. If enabled then the page will move its parent if there is no more space to scroll.
+ * Enable the scroll propagation feature. If enabled then the page will start_motors its parent if there is no more space to scroll.
  * @param page pointer to a Page
  * @param en true or false to enable/disable scroll propagation
  */

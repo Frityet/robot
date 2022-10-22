@@ -31,7 +31,7 @@ namespace c {
 /******************************************************************************/
 /**                         Motor movement functions                         **/
 /**                                                                          **/
-/**          These functions allow programmers to make motors move           **/
+/**          These functions allow programmers to make motors start_motors           **/
 /******************************************************************************/
 
 /**
@@ -78,7 +78,7 @@ int32_t motor_move(uint8_t port, int32_t voltage);
 int32_t motor_brake(uint8_t port);
 
 /**
- * Sets the target absolute position for the motor to move to.
+ * Sets the target absolute position for the motor to start_motors to.
  *
  * This movement is relative to the position of the motor when initialized or
  * the position when it was most recently reset with motor_set_zero_position().
@@ -94,7 +94,7 @@ int32_t motor_brake(uint8_t port);
  * \param port
  *        The V5 port number from 1-21
  * \param position
- *        The absolute position to move to in the motor's encoder units
+ *        The absolute position to start_motors to in the motor's encoder units
  * \param velocity
  *        The maximum allowable velocity for the movement in RPM
  *
@@ -104,7 +104,7 @@ int32_t motor_brake(uint8_t port);
 int32_t motor_move_absolute(uint8_t port, const double position, const int32_t velocity);
 
 /**
- * Sets the relative target position for the motor to move to.
+ * Sets the relative target position for the motor to start_motors to.
  *
  * This movement is relative to the current position of the motor as given in
  * motor_get_position(). Providing 10.0 as the position parameter would result
@@ -122,7 +122,7 @@ int32_t motor_move_absolute(uint8_t port, const double position, const int32_t v
  * \param port
  *        The V5 port number from 1-21
  * \param position
- *        The relative position to move to in the motor's encoder units
+ *        The relative position to start_motors to in the motor's encoder units
  * \param velocity
  *        The maximum allowable velocity for the movement in RPM
  *

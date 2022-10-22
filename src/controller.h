@@ -45,14 +45,14 @@ enum ControllerActionGroupType {
     ControllerActionGroup_ARROWS,
     ControllerActionGroup_BUMPERS,
 
-    ControllerActionGroup_COUNT     = 4,
+    ControllerActionGroup_COUNT = 4,
 };
 
 typedef void AnalogControllerAction_f(int32 value);
 typedef void DigitalControllerAction_f(void);
 
 struct ControllerConfig {
-    byte port;
+    Port_t port;
 
     struct {
         //one analog (stick) action group

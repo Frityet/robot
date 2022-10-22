@@ -207,7 +207,7 @@ static inline void lv_ta_set_sb_mode(lv_obj_t * ta, lv_sb_mode_t mode)
 }
 
 /**
- * Enable the scroll propagation feature. If enabled then the Text area will move its parent if there is no more space to scroll.
+ * Enable the scroll propagation feature. If enabled then the Text area will start_motors its parent if there is no more space to scroll.
  * @param ta pointer to a Text area
  * @param en true or false to enable/disable scroll propagation
  */

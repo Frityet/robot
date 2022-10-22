@@ -35,26 +35,25 @@ typedef float       float32;
 typedef double      float64;
 typedef long double float128;
 
-typedef uint8       byte;
-
-typedef struct Point {
-    int32 x, y;
-} Point_t;
+typedef uint8_t Port_t;
 
 enum State {
     on = true,
     off = false
 };
 
-__printflike(1, 2)
-static void print(const char *restrict fmt, ...)
-{
+typedef struct {
+    uint32 x, y;
+} Point_t;
 
+__printflike(2, 3)
+static void println(uint8 ln, const char *restrict fmt, ...)
+{
     char buf[BUFSIZ] = {0};
     va_list l;
     va_start(l, fmt);
     int32   writtenc = vsnprintf(buf, BUFSIZ, fmt, l),
-            siz = BUFSIZ - writtenc;
+        siz = BUFSIZ - writtenc;
     va_end(l);
 
     if (siz != 0) {
@@ -64,6 +63,9 @@ static void print(const char *restrict fmt, ...)
         strncat(buf, spc, siz);
     }
 
-    controller_set_text(E_CONTROLLER_MASTER, 0, 0, buf);
+    controller_set_text(E_CONTROLLER_MASTER, ln, 0, buf);
 }
+
+#define print(...) println(0, __VA_ARGS__)
+
 

@@ -9,13 +9,18 @@
 #include "src/common.h"
 
 static const struct {
-    byte controller, intake[2], flywheel[2];
-    struct {
+    Port_t controller, intake[2], flywheel[2];
+    union {
         struct {
-            byte back, front;
-        } right, left;
+            struct {
+                Port_t back, front;
+            } right, left;
+        };
+        struct {
+            Port_t right[2], left[2];
+        } as_array;
     } drive;
-    byte pneumatics[2];
+    Port_t pneumatics[2];
 } PORTS = {
     .controller = 10,
     .intake = { 7, 8 },
@@ -31,4 +36,13 @@ static const struct {
         }
     },
     .pneumatics = { 'A', 'B' }
+};
+
+static const struct {
+    Point_t size, tile_size;
+    int8    flipper_strength;
+} AUTONOMOUS = {
+    .size = { (uint32)365.76, (uint32)365.76 },
+    .tile_size = { (uint32)60.96, (uint32)60.96 },
+    .flipper_strength = 32
 };

@@ -13,6 +13,10 @@ void initialize()
 
     adi_port_set_config(PORTS.pneumatics[0], E_ADI_ANALOG_OUT);
     adi_port_set_config(PORTS.pneumatics[1], E_ADI_ANALOG_OUT);
+
+    controller_set_text(E_CONTROLLER_MASTER, 0, 0, "                    ");
+    controller_set_text(E_CONTROLLER_MASTER, 1, 0, "                    ");
+    controller_set_text(E_CONTROLLER_MASTER, 2, 0, "                    ");
 }
 
 noreturn void opcontrol()
@@ -39,19 +43,18 @@ noreturn void opcontrol()
                     .actions = {
                         [ControllerButton_A] = {
                             .on = $(void, (), {
-                                print("Activating pneumatics");
+                                println(2, "Pneumatics - On");
                                 adi_digital_write(PORTS.pneumatics[0], true);
                                 adi_digital_write(PORTS.pneumatics[1], true);
-                                print("Pneumatics - Activated");
                                 delay(1000);
-                                print("Deactivating pneumatics");
                                 adi_digital_write(PORTS.pneumatics[1], false);
                                 adi_digital_write(PORTS.pneumatics[0], false);
-                                print("Pneumatics complete");
+                                println(2, "Pneumatics - Off");
                             }),
                         },
                         [ControllerButton_B] = {
                             .on = $(void, (), {
+                                println(1, "Intake - On");
                                 motor_move(PORTS.intake[0], 127);
                                 motor_move(PORTS.intake[1], -127);
                             }),
@@ -59,15 +62,12 @@ noreturn void opcontrol()
 
                         [ControllerButton_Y] = {
                             .on = $(void, (), {
+                                println(1, "Intake - Off");
                                 motor_move(PORTS.intake[0], 0);
                                 motor_move(PORTS.intake[1], -0);
                             })
                         }
                     }
-                },
-
-                [ControllerActionGroup_ARROWS] = {
-
                 },
 
                 [ControllerActionGroup_BUMPERS] = {
@@ -76,7 +76,7 @@ noreturn void opcontrol()
                             .on = $(void, (), {
                                 motor_move(PORTS.flywheel[0], 127);
                                 motor_move(PORTS.flywheel[1], -127);
-                                print("Launcher at MAX");
+                                println(0, "Launcher - Max");
                             }),
                         },
 
@@ -84,7 +84,7 @@ noreturn void opcontrol()
                             .on = $(void, (), {
                                 motor_move(PORTS.flywheel[0], 127 / 2);
                                 motor_move(PORTS.flywheel[1], -127 / 2);
-                                print("Launcher at half!");
+                                println(0, "Launcher - Half");
                             }),
                         },
 
@@ -92,7 +92,7 @@ noreturn void opcontrol()
                             .on = $(void, (), {
                                 motor_move(PORTS.flywheel[0], 127);
                                 motor_move(PORTS.flywheel[1], -127 / 4);
-                                print("Launcher at quarter!");
+                                println(0, "Launcher - Quarter");
                             }),
                         },
 
@@ -100,7 +100,7 @@ noreturn void opcontrol()
                             .on = $(void, (), {
                                 motor_move(PORTS.flywheel[0], 0);
                                 motor_move(PORTS.flywheel[1], -0);
-                                print("Launcher off!");
+                                println(0, "Launcher - Off");
                             }),
                         },
                     }
@@ -109,5 +109,6 @@ noreturn void opcontrol()
         }
     });
 
-    while (true);
+    while (true) {
+    }
 }

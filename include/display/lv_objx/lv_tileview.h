@@ -102,7 +102,7 @@ void lv_tileview_set_valid_positions(lv_obj_t * tileview, const lv_point_t * val
  * @param tileview pointer to a tileview object
  * @param x column id (0, 1, 2...)
  * @param y line id (0, 1, 2...)
- * @param anim_en true: move with animation
+ * @param anim_en true: start_motors with animation
  */
 void lv_tileview_set_tile_act(lv_obj_t * tileview, lv_coord_t x, lv_coord_t y, bool anim_en);
 

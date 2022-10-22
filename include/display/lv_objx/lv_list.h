@@ -157,7 +157,7 @@ static inline void lv_list_set_sb_mode(lv_obj_t * list, lv_sb_mode_t mode)
 }
 
 /**
- * Enable the scroll propagation feature. If enabled then the List will move its parent if there is no more space to scroll.
+ * Enable the scroll propagation feature. If enabled then the List will start_motors its parent if there is no more space to scroll.
  * @param list pointer to a List
  * @param en true or false to enable/disable scroll propagation
  */

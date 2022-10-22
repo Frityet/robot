@@ -6,6 +6,23 @@
 
 #include "../config.h"
 
+static void set_drive_units(enum motor_encoder_units_e units)
+{
+    motor_set_encoder_units(PORTS.drive.right.front, units);
+    motor_set_encoder_units(PORTS.drive.right.back, units);
+    motor_set_encoder_units(PORTS.drive.left.front, units);
+    motor_set_encoder_units(PORTS.drive.left.back, units);
+}
+
+static void set_drive(int8 volts)
+{
+    motor_move(PORTS.drive.left.front,-volts);
+    motor_move(PORTS.drive.left.back, volts);
+
+    motor_move(PORTS.drive.right.front, volts);
+    motor_move(PORTS.drive.right.back, -volts);
+}
+
 static void move_spaces(int32 spacec, int32 speed)
 {
     float64 tilesiz = CONFIG.field.tile_size;
@@ -14,6 +31,10 @@ static void move_spaces(int32 spacec, int32 speed)
 
     motor_move_relative(PORTS.drive.right.front,tilesiz * spacec,   speed);
     motor_move_relative(PORTS.drive.right.back, tilesiz * spacec,  -speed);
+
+    delay(2000);
+
+    set_drive(0);
 }
 
 static uint16 clamp_angle(int64 val)
@@ -45,11 +66,7 @@ static void rotate(uint16 deg)
 
     delay(CONFIG.get_delay(deg));
 
-    motor_move(PORTS.drive.left.front, 0);
-    motor_move(PORTS.drive.left.back, -0);
-
-    motor_move(PORTS.drive.right.front, 0);
-    motor_move(PORTS.drive.right.back, -0);
+    set_drive(0);
 }
 
 static void rotate_2(uint16 deg)
@@ -67,7 +84,7 @@ static void rotate_2(uint16 deg)
     motor_move(right_f, -rot);
     motor_move(right_b, rot);
 
-    uint16 current = get_rotation();
+    uint16 current = 0;
     while (current != deg) current = get_rotation();
 
     motor_move(PORTS.drive.left.front, 0);
@@ -87,16 +104,10 @@ void autonomous(void)
     lcd_print(0, "Waheguru Waheguru Waheguru Ji,");
     lcd_print(1, "Satnam Satnam Satnam Ji");
 
-    rotate(45);
-    delay(10000);
-    rotate_2(45);
+    printf("Moving flipper");
+    motor_move(PORTS.intake[0], CONFIG.flipper_strength);
+    delay(1000);
+    motor_move(PORTS.intake[0], 0);
 
-
-//    printf("Moving flipper");
-//    motor_move(PORTS.intake[0], CONFIG.flipper_strength);
-//    delay(1000);
-//    motor_move(PORTS.intake[0], 0);
-//
-//    printf("Moving spaces");
-//    move_spaces(1, 120);
+    move_spaces(1, 19);
 }

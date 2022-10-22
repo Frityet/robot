@@ -24,7 +24,7 @@ static const struct {
             Port_t right[2], left[2];
         } as_array;
     } drive;
-    Port_t pneumatics[2];
+    Port_t pneumatics, launcher;
 } PORTS = {
     .controller = 10,
     .intake = { 7, 8 },
@@ -39,7 +39,8 @@ static const struct {
             .front = 4
         }
     },
-    .pneumatics = { 'A', 'B' }
+    .pneumatics = 'A',
+    .launcher = 'B'
 };
 
 struct RotationPoint {

@@ -11,13 +11,8 @@ void initialize()
 {
     lcd_initialize();
 
-    motor_set_encoder_units(PORTS.drive.right.front, E_MOTOR_ENCODER_DEGREES);
-    motor_set_encoder_units(PORTS.drive.right.back, E_MOTOR_ENCODER_DEGREES);
-    motor_set_encoder_units(PORTS.drive.left.front, E_MOTOR_ENCODER_DEGREES);
-    motor_set_encoder_units(PORTS.drive.left.back, E_MOTOR_ENCODER_DEGREES);
-
-    adi_port_set_config(PORTS.pneumatics[0], E_ADI_ANALOG_OUT);
-    adi_port_set_config(PORTS.pneumatics[1], E_ADI_ANALOG_OUT);
+    adi_port_set_config(PORTS.pneumatics, E_ADI_ANALOG_OUT);
+    adi_port_set_config(PORTS.launcher, E_ADI_ANALOG_OUT);
 
     println(0, "Launcher   - Off");
     println(1, "Intake     - Off");
@@ -49,11 +44,9 @@ noreturn void opcontrol()
                         [ControllerButton_A] = {
                             .on = $(void, (), {
                                 println(2, "Pneumatics - On");
-                                adi_digital_write(PORTS.pneumatics[0], true);
-                                adi_digital_write(PORTS.pneumatics[1], true);
+                                adi_digital_write(PORTS.pneumatics, true);
                                 delay(1000);
-                                adi_digital_write(PORTS.pneumatics[1], false);
-                                adi_digital_write(PORTS.pneumatics[0], false);
+                                adi_digital_write(PORTS.pneumatics, false);
                                 println(2, "Pneumatics - Off");
                             }),
                         },
@@ -70,6 +63,20 @@ noreturn void opcontrol()
                                 println(1, "Intake - Off");
                                 motor_move(PORTS.intake[0], 0);
                                 motor_move(PORTS.intake[1], -0);
+                            })
+                        }
+                    }
+                },
+
+                [ControllerActionGroup_ARROWS] = {
+                    .actions = {
+                        [ControllerArrow_UP] = {
+                            .on = $(void, (), {
+                                println(2, "Launcher - On");
+                                adi_digital_write(PORTS.pneumatics, true);
+                                delay(1000);
+                                adi_digital_write(PORTS.launcher, false);
+                                println(2, "Launcher - Off");
                             })
                         }
                     }

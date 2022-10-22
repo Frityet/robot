@@ -4,11 +4,16 @@
 #include <stdnoreturn.h>
 #include "controller.h"
 
-#define DEF(n) void n(){}
-DEF(disabled);
-DEF(competition_initialize);
-DEF(autonomous);
-DEF(initialize);
+#define asm(...) __asm__ volatile (#__VA_ARGS__)
+
+void disabled() {}
+void competition_initialize()
+{
+    //:trolling:
+    asm(RET);
+}
+void autonomous() {}
+void initialize() {}
 
 static void rev_launcher(int8 force)
 {

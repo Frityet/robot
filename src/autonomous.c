@@ -101,9 +101,6 @@ static void rotate_2(uint16 deg)
 ///
 void autonomous(void)
 {
-    lcd_print(0, "Waheguru Waheguru Waheguru Ji,");
-    lcd_print(1, "Satnam Satnam Satnam Ji");
-
     printf("Moving flipper");
     motor_move(PORTS.intake[0], CONFIG.flipper_strength);
     delay(1000);

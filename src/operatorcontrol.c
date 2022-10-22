@@ -11,18 +11,21 @@ void initialize()
 {
     lcd_initialize();
 
-    if (adi_port_set_config(PORTS.pneumatics, E_ADI_ANALOG_OUT) == PROS_ERR) println(0, "ERROR, %s", strerror(errno));
-    if (adi_port_set_config(PORTS.launcher, E_ADI_ANALOG_OUT) == PROS_ERR) println(0, "ERROR, %s", strerror(errno));
+    if (adi_port_set_config(PORTS.pneumatics, E_ADI_DIGITAL_OUT) == PROS_ERR) println(0, "ERROR, %s", strerror(errno));
+    if (adi_port_set_config(PORTS.launcher, E_ADI_DIGITAL_OUT) == PROS_ERR) println(0, "ERROR, %s", strerror(errno));
 
-//    adi_digital_write(PORTS.pneumatics, on);
-//    adi_digital_write(PORTS.launcher, on);
+    adi_digital_write(PORTS.pneumatics, off);
+    adi_digital_write(PORTS.launcher, off);
+
+    lcd_print(0, "Waheguru Waheguru Waheguru Ji,");
+    lcd_print(1, "Satnam Satnam Satnam Ji");
 }
 
 noreturn void opcontrol()
 {
-//    println(0, "Launcher   - Off");
-//    println(1, "Intake     - Off");
-//    println(2, "Pneumatics - Off");
+    println(0, "Launcher   - Off");
+    println(1, "Intake     - Off");
+    println(2, "Pneumatics - Off");
 
     collect_controller_input(&(struct ControllerConfig) {
         .port = PORTS.controller,
@@ -46,11 +49,11 @@ noreturn void opcontrol()
                     .actions = {
                         [ControllerButton_X] = {
                             .on = $(void, (), {
-//                                println(2, "Pneumatics - On");
-//                                adi_digital_write(PORTS.pneumatics, on);
-//                                delay(1000);
-//                                adi_digital_write(PORTS.pneumatics, off);
-//                                println(2, "Pneumatics - Off");
+                                println(2, "Pneumatics - On");
+                                adi_digital_write(PORTS.pneumatics, off);
+                                delay(1000);
+                                adi_digital_write(PORTS.pneumatics, on);
+                                println(2, "Pneumatics - Off");
                             }),
                         },
                         [ControllerButton_B] = {
@@ -75,11 +78,11 @@ noreturn void opcontrol()
                     .actions = {
                         [ControllerArrow_UP] = {
                             .on = $(void, (), {
-//                                println(2, "Nuts - On");
-//                                adi_digital_write(PORTS.launcher, on);
-//                                delay(1000);
-//                                adi_digital_write(PORTS.launcher, off);
-//                                println(2, "Nuts - Off");
+                                println(2, "Nuts - On");
+                                adi_digital_write(PORTS.launcher, off);
+                                delay(1000);
+                                adi_digital_write(PORTS.launcher, on);
+                                println(2, "Nuts - Off");
                             })
                         }
                     }

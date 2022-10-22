@@ -39,8 +39,8 @@ static const struct {
             .front = 4
         }
     },
-    .pneumatics = 'A',
-    .launcher = 'B'
+    .pneumatics = 'B',
+    .launcher = 'A'
 };
 
 struct RotationPoint {

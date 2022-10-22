@@ -23,7 +23,7 @@ static bool get_digitals(struct Controller_DigitalActionGroup group[static 1], c
 {
     bool any_active = false;
 
-    for (int i = 0; i < 4; i++)
+    for (int32 i = 0; i < 4; i++)
         if (controller_get_digital_new_press(E_CONTROLLER_MASTER, offset + i)) {
             any_active = true;
             NN(group->actions[i].on)();
@@ -35,7 +35,6 @@ static bool get_digitals(struct Controller_DigitalActionGroup group[static 1], c
 task_t collect_controller_input(struct ControllerConfig arg[static 1])
 {
     return task_create((void *)$(void, (struct ControllerConfig controller[static 1]), {
-
         controller_clear_line(E_CONTROLLER_MASTER, 0);
         controller_print(E_CONTROLLER_MASTER, 0, 0, "Created task");
         while (true) {
@@ -51,7 +50,7 @@ task_t collect_controller_input(struct ControllerConfig arg[static 1])
             if (!get_digitals(dgroup, E_CONTROLLER_DIGITAL_X))
                 NN(dgroup->all_off)();
 
-            for (int i = 0; i < 4; i++)
+            for (int32 i = 0; i < 4; i++)
                 NN(controller->actions.analog.actions[i])(controller_get_analog(E_CONTROLLER_MASTER, i));
         }
     }), arg, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Controller task");

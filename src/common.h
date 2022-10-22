@@ -41,7 +41,29 @@ typedef struct Point {
     int32 x, y;
 } Point_t;
 
-typedef enum State {
+enum State {
     on = true,
     off = false
-} State_et;
+};
+
+__printflike(1, 2)
+static void print(const char *restrict fmt, ...)
+{
+
+    char buf[BUFSIZ] = {0};
+    va_list l;
+    va_start(l, fmt);
+    int32   writtenc = vsnprintf(buf, BUFSIZ, fmt, l),
+            siz = BUFSIZ - writtenc;
+    va_end(l);
+
+    if (siz != 0) {
+        char spc[siz];
+        memset(spc, ' ', siz);
+        spc[siz] = '\0';
+        strncat(buf, spc, siz);
+    }
+
+    controller_set_text(E_CONTROLLER_MASTER, 0, 0, buf);
+}
+

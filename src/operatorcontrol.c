@@ -6,27 +6,28 @@
 
 void disabled() {}
 void competition_initialize(){}
-void autonomous() {}
-void initialize() {}
+
+void initialize()
+{
+    lcd_initialize();
+
+    adi_port_set_config(PORTS.pneumatics[0], E_ADI_ANALOG_OUT);
+    adi_port_set_config(PORTS.pneumatics[1], E_ADI_ANALOG_OUT);
+}
 
 noreturn void opcontrol()
 {
-    adi_port_set_config(PORTS.pneumatics[0], E_ADI_ANALOG_OUT);
-    adi_port_set_config(PORTS.pneumatics[1], E_ADI_ANALOG_OUT);
-
     collect_controller_input(&(struct ControllerConfig) {
         .port = PORTS.controller,
         .actions = {
             .analog = {
                 .actions = {
                     [ControllerStick_LEFT_Y] = $(void, (int32 val), {
-//                        controller_print(E_CONTROLLER_MASTER, 0, 0, "LValue: %d", val);
                         motor_move(PORTS.drive.left.front, -val);
                         motor_move(PORTS.drive.left.back, val);
                     }),
 
                     [ControllerStick_RIGHT_Y] = $(void, (int32 val), {
-//                        controller_print(E_CONTROLLER_MASTER, 1, 0, "RValue: %d", val);
                         motor_move(PORTS.drive.right.front, val);
                         motor_move(PORTS.drive.right.back, -val);
                     })
@@ -38,12 +39,29 @@ noreturn void opcontrol()
                     .actions = {
                         [ControllerButton_A] = {
                             .on = $(void, (), {
+                                print("Activating pneumatics");
                                 adi_digital_write(PORTS.pneumatics[0], true);
                                 adi_digital_write(PORTS.pneumatics[1], true);
+                                print("Pneumatics - Activated");
                                 delay(1000);
+                                print("Deactivating pneumatics");
                                 adi_digital_write(PORTS.pneumatics[1], false);
                                 adi_digital_write(PORTS.pneumatics[0], false);
+                                print("Pneumatics complete");
                             }),
+                        },
+                        [ControllerButton_B] = {
+                            .on = $(void, (), {
+                                motor_move(PORTS.intake[0], 127);
+                                motor_move(PORTS.intake[1], -127);
+                            }),
+                        },
+
+                        [ControllerButton_Y] = {
+                            .on = $(void, (), {
+                                motor_move(PORTS.intake[0], 0);
+                                motor_move(PORTS.intake[1], -0);
+                            })
                         }
                     }
                 },
@@ -58,7 +76,7 @@ noreturn void opcontrol()
                             .on = $(void, (), {
                                 motor_move(PORTS.flywheel[0], 127);
                                 motor_move(PORTS.flywheel[1], -127);
-                                controller_print(E_CONTROLLER_MASTER, 0, 0, "Launcher at MAX                  ");
+                                print("Launcher at MAX");
                             }),
                         },
 
@@ -66,15 +84,15 @@ noreturn void opcontrol()
                             .on = $(void, (), {
                                 motor_move(PORTS.flywheel[0], 127 / 2);
                                 motor_move(PORTS.flywheel[1], -127 / 2);
-                                controller_print(E_CONTROLLER_MASTER, 0, 0, "Launcher at half                 ");
+                                print("Launcher at half!");
                             }),
                         },
 
                         [ControllerBumper_R2] = {
                             .on = $(void, (), {
                                 motor_move(PORTS.flywheel[0], 127);
-                                motor_move(PORTS.flywheel[1], -127 / 2);
-                                controller_print(E_CONTROLLER_MASTER, 0, 0, "Launcher at quarter             ");
+                                motor_move(PORTS.flywheel[1], -127 / 4);
+                                print("Launcher at quarter!");
                             }),
                         },
 
@@ -82,7 +100,7 @@ noreturn void opcontrol()
                             .on = $(void, (), {
                                 motor_move(PORTS.flywheel[0], 0);
                                 motor_move(PORTS.flywheel[1], -0);
-                                controller_print(E_CONTROLLER_MASTER, 0, 0, "Launcher off                     ");
+                                print("Launcher off!");
                             }),
                         },
                     }

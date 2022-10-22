@@ -9,17 +9,10 @@ void competition_initialize(){}
 void autonomous() {}
 void initialize() {}
 
-static void rev_launcher(int8 force)
-{
-    motor_move(PORTS.flywheel[0], force);
-    motor_move(PORTS.flywheel[1], -force);
-}
-
 noreturn void opcontrol()
 {
-    adi_port_set_config(PORTS.pneumatics, E_ADI_ANALOG_OUT);
-
-//    controller_print(E_CONTROLLER_MASTER, 0, 0, "Start this POS");
+    adi_port_set_config(PORTS.pneumatics[0], E_ADI_ANALOG_OUT);
+    adi_port_set_config(PORTS.pneumatics[1], E_ADI_ANALOG_OUT);
 
     collect_controller_input(&(struct ControllerConfig) {
         .port = PORTS.controller,
@@ -45,9 +38,11 @@ noreturn void opcontrol()
                     .actions = {
                         [ControllerButton_A] = {
                             .on = $(void, (), {
-                                adi_port_set_value(PORTS.pneumatics, 100);
+                                adi_digital_write(PORTS.pneumatics[0], true);
+                                adi_digital_write(PORTS.pneumatics[1], true);
                                 delay(1000);
-                                adi_port_set_value(PORTS.pneumatics, 0);
+                                adi_digital_write(PORTS.pneumatics[1], false);
+                                adi_digital_write(PORTS.pneumatics[0], false);
                             }),
                         }
                     }
@@ -61,29 +56,33 @@ noreturn void opcontrol()
                     .actions = {
                         [ControllerBumper_L1] = {
                             .on = $(void, (), {
-                                rev_launcher(127);
+                                motor_move(PORTS.flywheel[0], 127);
+                                motor_move(PORTS.flywheel[1], -127);
                                 controller_print(E_CONTROLLER_MASTER, 0, 0, "Launcher at MAX                  ");
-                            }),
-                        },
-
-                        [ControllerBumper_L2] = {
-                            .on = $(void, (), {
-                                rev_launcher(0);
-                                controller_print(E_CONTROLLER_MASTER, 0, 0, "Launcher off                     ");
                             }),
                         },
 
                         [ControllerBumper_R1] = {
                             .on = $(void, (), {
-                                rev_launcher(127 / 2);
+                                motor_move(PORTS.flywheel[0], 127 / 2);
+                                motor_move(PORTS.flywheel[1], -127 / 2);
                                 controller_print(E_CONTROLLER_MASTER, 0, 0, "Launcher at half                 ");
                             }),
                         },
 
                         [ControllerBumper_R2] = {
                             .on = $(void, (), {
-                                rev_launcher(127 / 4);
+                                motor_move(PORTS.flywheel[0], 127);
+                                motor_move(PORTS.flywheel[1], -127 / 2);
                                 controller_print(E_CONTROLLER_MASTER, 0, 0, "Launcher at quarter             ");
+                            }),
+                        },
+
+                        [ControllerBumper_L2] = {
+                            .on = $(void, (), {
+                                motor_move(PORTS.flywheel[0], 0);
+                                motor_move(PORTS.flywheel[1], -0);
+                                controller_print(E_CONTROLLER_MASTER, 0, 0, "Launcher off                     ");
                             }),
                         },
                     }

@@ -15,7 +15,7 @@ static const struct {
             byte back, front;
         } right, left;
     } drive;
-    byte pneumatics;
+    byte pneumatics[2];
 } PORTS = {
     .controller = 10,
     .intake = { 7, 8 },
@@ -30,5 +30,5 @@ static const struct {
             .front = 4
         }
     },
-    .pneumatics = 'B'
+    .pneumatics = { 'A', 'B' }
 };

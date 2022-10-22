@@ -38,20 +38,19 @@ task_t collect_controller_input(struct ControllerConfig arg[static 1])
 
         controller_clear_line(E_CONTROLLER_MASTER, 0);
         controller_print(E_CONTROLLER_MASTER, 0, 0, "Created task");
-
-        struct Controller_DigitalActionGroup *dgroup = &controller->actions.digital[ControllerActionGroup_BUMPERS];
-        if (!get_digitals(dgroup, E_CONTROLLER_DIGITAL_L1))
-            NN(dgroup->all_off)();
-
-        dgroup = &controller->actions.digital[ControllerActionGroup_ARROWS];
-        if (!get_digitals(dgroup, E_CONTROLLER_DIGITAL_UP))
-            NN(dgroup->all_off)();
-
-        dgroup = &controller->actions.digital[ControllerActionGroup_BUTTONS];
-        if (!get_digitals(dgroup, E_CONTROLLER_DIGITAL_X))
-            NN(dgroup->all_off)();
-
         while (true) {
+            struct Controller_DigitalActionGroup *dgroup = &controller->actions.digital[ControllerActionGroup_BUMPERS];
+            if (!get_digitals(dgroup, E_CONTROLLER_DIGITAL_L1))
+                NN(dgroup->all_off)();
+
+            dgroup = &controller->actions.digital[ControllerActionGroup_ARROWS];
+            if (!get_digitals(dgroup, E_CONTROLLER_DIGITAL_UP))
+                NN(dgroup->all_off)();
+
+            dgroup = &controller->actions.digital[ControllerActionGroup_BUTTONS];
+            if (!get_digitals(dgroup, E_CONTROLLER_DIGITAL_X))
+                NN(dgroup->all_off)();
+
             for (int i = 0; i < 4; i++)
                 NN(controller->actions.analog.actions[i])(controller_get_analog(E_CONTROLLER_MASTER, i));
         }

@@ -109,5 +109,22 @@ void autonomous(void)
     delay(1000);
     motor_move(PORTS.intake[0], 0);
 
-    move_spaces(1, 19);
+    move_spaces(2, 127);
+    rotate_2(45);
+
+    motor_move(PORTS.flywheel[0], 127 / 2);
+    motor_move(PORTS.flywheel[1], -127 / 2);
+    delay(1000);
+
+    println(2, "Pneumatics - On");
+    adi_digital_write(PORTS.pneumatics, true);
+    delay(1000);
+    adi_digital_write(PORTS.pneumatics, false);
+    println(2, "Pneumatics - Off");
+
+    println(2, "Pneumatics - On");
+    adi_digital_write(PORTS.pneumatics, true);
+    delay(1000);
+    adi_digital_write(PORTS.pneumatics, false);
+    println(2, "Pneumatics - Off");
 }

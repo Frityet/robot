@@ -102,5 +102,5 @@ static const struct {
     Point_t dimensions;
 } ROBOT = {
    .wheel_radius = 4,
-   .dimensions = { 25, 25.5 }
+   .dimensions = { 18, 25.5 }
 };

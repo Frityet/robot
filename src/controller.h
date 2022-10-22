@@ -70,4 +70,4 @@ struct ControllerConfig {
     } actions;
 };
 
-task_t collect_controller_input(struct ControllerConfig controller[static 1]);
+void collect_controller_input(struct ControllerConfig controller[static 1]);

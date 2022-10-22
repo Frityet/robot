@@ -45,10 +45,10 @@ static uint16 get_rotation()
 {
     struct DrivetrainSide left = PORTS.drive.left, right = PORTS.drive.right;
 
-    return clamp_angle((((left.front + left.back) / 2 - (right.front + right.back) / 2) / ROBOT.dimensions.x) * (M_PI / 180));
+    return clamp_angle((((motor_get_position(left.front) + motor_get_position(left.back)) / 2 - (motor_get_position(right.front) + motor_get_position(right.back)) / 2) / ROBOT.dimensions.x) * (M_PI / 180));
 }
 
-static void rotate_2(uint16 deg)
+static void rotate(uint16 deg)
 {
     int8 rot = 127;
 
@@ -62,10 +62,14 @@ static void rotate_2(uint16 deg)
     motor_move(right_f, -rot);
     motor_move(right_b, rot);
 
+    uint16 current = get_rotation();
+    while (deg - current > 0 || deg - current < 1) {
+        print("%d\n", current = get_rotation());
+        delay(10);
+    }
+
     set_drive(0);
 
-    uint16 current = get_rotation();
-    while (current != deg) print("%d\n", current = get_rotation());
 
 }
 
@@ -82,8 +86,7 @@ void autonomous(void)
     delay(1000);
     motor_move(PORTS.intake[0], 0);
 
-    move_spaces(2, 127);
-    rotate_2(45);
+    rotate(45);
 
     motor_move(PORTS.flywheel[0], 127 / 2);
     motor_move(PORTS.flywheel[1], -127 / 2);

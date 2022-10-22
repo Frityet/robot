@@ -37,15 +37,15 @@ noreturn void collect_controller_input(struct ControllerConfig arg[static 1])
     //TODO: Run analog on main thread, have a unique thread for each digital group
     task_create((void *)$(void, (struct ControllerConfig controller[static 1]), {
         while (true) {
-            struct Controller_DigitalActionGroup *dgroup = &controller->actions.digital[ControllerActionGroup_BUMPERS];
+            struct Controller_DigitalActionGroup *dgroup = &controller->digital[ControllerActionGroup_BUMPERS];
             if (!get_digitals(dgroup, E_CONTROLLER_DIGITAL_L1))
                 NN(dgroup->all_off)();
 
-            dgroup = &controller->actions.digital[ControllerActionGroup_ARROWS];
+            dgroup = &controller->digital[ControllerActionGroup_ARROWS];
             if (!get_digitals(dgroup, E_CONTROLLER_DIGITAL_UP))
                 NN(dgroup->all_off)();
 
-            dgroup = &controller->actions.digital[ControllerActionGroup_BUTTONS];
+            dgroup = &controller->digital[ControllerActionGroup_BUTTONS];
             if (!get_digitals(dgroup, E_CONTROLLER_DIGITAL_X))
                 NN(dgroup->all_off)();
         }
@@ -53,5 +53,5 @@ noreturn void collect_controller_input(struct ControllerConfig arg[static 1])
 
     while (true)
     for (int32 i = 0; i < 4; i++)
-        NN(arg->actions.analog.actions[i])(controller_get_analog(E_CONTROLLER_MASTER, i));
+        NN(arg->analog.actions[i])(controller_get_analog(E_CONTROLLER_MASTER, i));
 }

@@ -52,22 +52,18 @@ typedef void AnalogControllerAction_f(int32 value);
 typedef void DigitalControllerAction_f(void);
 
 struct ControllerConfig {
-    Port_t port;
-
+    //one analog (stick) action group
     struct {
-        //one analog (stick) action group
-        struct {
-            AnalogControllerAction_f *actions[ControllerActionGroup_COUNT];
-        } analog;
+        AnalogControllerAction_f *actions[ControllerActionGroup_COUNT];
+    } analog;
 
-        //three digital (button) action groups
-        struct Controller_DigitalActionGroup {
-            DigitalControllerAction_f *all_off;
-            struct {
-                DigitalControllerAction_f *on, *off;
-            } actions[ControllerActionGroup_COUNT];
-        } digital[3];
-    } actions;
+    //three digital (button) action groups
+    struct Controller_DigitalActionGroup {
+        DigitalControllerAction_f *all_off;
+        struct {
+            DigitalControllerAction_f *on, *off;
+        } actions[ControllerActionGroup_COUNT];
+    } digital[3];
 };
 
 noreturn void collect_controller_input(struct ControllerConfig controller[static 1]);

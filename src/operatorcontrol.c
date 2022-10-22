@@ -11,12 +11,17 @@ void initialize()
 {
     lcd_initialize();
 
+    motor_set_encoder_units(PORTS.drive.right.front, E_MOTOR_ENCODER_DEGREES);
+    motor_set_encoder_units(PORTS.drive.right.back, E_MOTOR_ENCODER_DEGREES);
+    motor_set_encoder_units(PORTS.drive.left.front, E_MOTOR_ENCODER_DEGREES);
+    motor_set_encoder_units(PORTS.drive.left.back, E_MOTOR_ENCODER_DEGREES);
+
     adi_port_set_config(PORTS.pneumatics[0], E_ADI_ANALOG_OUT);
     adi_port_set_config(PORTS.pneumatics[1], E_ADI_ANALOG_OUT);
 
-    controller_set_text(E_CONTROLLER_MASTER, 0, 0, "                    ");
-    controller_set_text(E_CONTROLLER_MASTER, 1, 0, "                    ");
-    controller_set_text(E_CONTROLLER_MASTER, 2, 0, "                    ");
+    println(0, "Launcher   - Off");
+    println(1, "Intake     - Off");
+    println(2, "Pneumatics - Off");
 }
 
 noreturn void opcontrol()
@@ -108,7 +113,4 @@ noreturn void opcontrol()
             }
         }
     });
-
-    while (true) {
-    }
 }

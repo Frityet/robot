@@ -6,21 +6,76 @@
 
 #include "../config.h"
 
-typedef int32 Rotation_t;
-
-static Rotation_t clamp_rotation(Rotation_t val)
+static void move_spaces(int32 spacec, int32 speed)
 {
-    return val > 360 ? val - 360 : val < 0 ? clamp_rotation(-val) : val;
+    float64 tilesiz = CONFIG.field.tile_size;
+    motor_move_relative(PORTS.drive.left.front, tilesiz * spacec,   -speed);
+    motor_move_relative(PORTS.drive.left.back,  tilesiz * spacec,   speed);
+
+    motor_move_relative(PORTS.drive.right.front,tilesiz * spacec,   speed);
+    motor_move_relative(PORTS.drive.right.back, tilesiz * spacec,  -speed);
 }
 
-static Rotation_t rotate(Rotation_t val, Rotation_t amount)
+static uint16 clamp_angle(int64 val)
 {
-    val = clamp_rotation(val + amount);
+    return val > 360 || val < 0 ? val % 360 : val;
+}
 
-//    motor_move_relative(PORTS.drive.left.front, 10);
-//    start_motors(PORTS.drive.left.back, -10);
+static uint16 get_rotation()
+{
+    struct DrivetrainSide left = PORTS.drive.left, right = PORTS.drive.right;
 
-    return val;
+    return clamp_angle((((left.front + left.back) / 2 - (right.front + right.back) / 2) / ROBOT.dimensions.x) * (M_PI / 180));
+}
+
+static void rotate(uint16 deg)
+{
+    int8 rot = 127;
+
+    Port_t  left_f  = PORTS.drive.left.front,
+            left_b  = PORTS.drive.left.back,
+            right_f = PORTS.drive.right.front,
+            right_b = PORTS.drive.right.back;
+
+    motor_move(left_f, -rot);
+    motor_move(left_b, rot);
+
+    motor_move(right_f, -rot);
+    motor_move(right_b, rot);
+
+    delay(CONFIG.get_delay(deg));
+
+    motor_move(PORTS.drive.left.front, 0);
+    motor_move(PORTS.drive.left.back, -0);
+
+    motor_move(PORTS.drive.right.front, 0);
+    motor_move(PORTS.drive.right.back, -0);
+}
+
+static void rotate_2(uint16 deg)
+{
+    int8 rot = 127;
+
+    Port_t  left_f  = PORTS.drive.left.front,
+            left_b  = PORTS.drive.left.back,
+            right_f = PORTS.drive.right.front,
+            right_b = PORTS.drive.right.back;
+
+    motor_move(left_f, -rot);
+    motor_move(left_b, rot);
+
+    motor_move(right_f, -rot);
+    motor_move(right_b, rot);
+
+    uint16 current = get_rotation();
+    while (current != deg) current = get_rotation();
+
+    motor_move(PORTS.drive.left.front, 0);
+    motor_move(PORTS.drive.left.back, -0);
+
+    motor_move(PORTS.drive.right.front, 0);
+    motor_move(PORTS.drive.right.back, -0);
+
 }
 
 ///
@@ -32,7 +87,16 @@ void autonomous(void)
     lcd_print(0, "Waheguru Waheguru Waheguru Ji,");
     lcd_print(1, "Satnam Satnam Satnam Ji");
 
-    Rotation_t rotation = 0;
+    rotate(45);
+    delay(10000);
+    rotate_2(45);
 
 
+//    printf("Moving flipper");
+//    motor_move(PORTS.intake[0], CONFIG.flipper_strength);
+//    delay(1000);
+//    motor_move(PORTS.intake[0], 0);
+//
+//    printf("Moving spaces");
+//    move_spaces(1, 120);
 }

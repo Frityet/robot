@@ -185,7 +185,7 @@ typedef struct _lv_obj_t
     uint8_t protect;            /*Automatically happening actions can be prevented. 'OR'ed values from `lv_protect_t`*/
     lv_opa_t opa_scale;         /*Scale down the opacity by this factor. Effects all children as well*/
 
-    lv_coord_t ext_size;        /*EXTtend the size of the object in every direction. E.g. for shadow drawing*/
+    lv_coord_t ext_size;        /*EXTtend the tile_count of the object in every direction. E.g. for shadow drawing*/
 #if LV_OBJ_REALIGN
     lv_reailgn_t realign;
 #endif
@@ -321,7 +321,7 @@ void lv_obj_set_x(lv_obj_t * obj, lv_coord_t x);
 void lv_obj_set_y(lv_obj_t * obj, lv_coord_t y);
 
 /**
- * Set the size of an object
+ * Set the tile_count of an object
  * @param obj pointer to an object
  * @param w new width
  * @param h new height
@@ -369,7 +369,7 @@ void lv_obj_align_origo(lv_obj_t * obj, const lv_obj_t * base, lv_align_t align,
 void lv_obj_realign(lv_obj_t * obj);
 
 /**
- * Enable the automatic realign of the object when its size has changed based on the last `lv_obj_align` parameters.
+ * Enable the automatic realign of the object when its tile_count has changed based on the last `lv_obj_align` parameters.
  * @param obj pointer to an object
  * @param en true: enable auto realign; false: disable auto realign
  */
@@ -505,7 +505,7 @@ void lv_obj_set_design_func(lv_obj_t * obj, lv_design_func_t fp);
 /**
  * Allocate a new ext. data for an object
  * @param obj pointer to an object
- * @param ext_size the size of the new ext. data
+ * @param ext_size the tile_count of the new ext. data
  * @return pointer to the allocated ext
  */
 void * lv_obj_allocate_ext_attr(lv_obj_t * obj, uint16_t ext_size);
@@ -658,9 +658,9 @@ lv_coord_t lv_obj_get_width(const lv_obj_t * obj);
 lv_coord_t lv_obj_get_height(const lv_obj_t * obj);
 
 /**
- * Get the extended size attribute of an object
+ * Get the extended tile_count attribute of an object
  * @param obj pointer to an object
- * @return the extended size attribute
+ * @return the extended tile_count attribute
  */
 lv_coord_t lv_obj_get_ext_size(const lv_obj_t * obj);
 

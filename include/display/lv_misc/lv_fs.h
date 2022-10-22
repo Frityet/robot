@@ -180,7 +180,7 @@ lv_fs_res_t lv_fs_seek (lv_fs_file_t * file_p, uint32_t pos);
 lv_fs_res_t lv_fs_tell (lv_fs_file_t * file_p, uint32_t  * pos);
 
 /**
- * Truncate the file size to the current position of the read write pointer
+ * Truncate the file tile_count to the current position of the read write pointer
  * @param file_p pointer to an 'ufs_file_t' variable. (opened with lv_fs_open )
  * @return LV_FS_RES_OK: no error, the file is read
  *         any error from lv_fs_res_t enum
@@ -188,9 +188,9 @@ lv_fs_res_t lv_fs_tell (lv_fs_file_t * file_p, uint32_t  * pos);
 lv_fs_res_t lv_fs_trunc (lv_fs_file_t * file_p);
 
 /**
- * Give the size of a file bytes
+ * Give the tile_count of a file bytes
  * @param file_p pointer to a lv_fs_file_t variable
- * @param size pointer to a variable to store the size
+ * @param size pointer to a variable to store the tile_count
  * @return LV_FS_RES_OK or any error from lv_fs_res_t enum
  */
 lv_fs_res_t lv_fs_size (lv_fs_file_t * file_p, uint32_t * size);
@@ -228,10 +228,10 @@ lv_fs_res_t lv_fs_dir_read (lv_fs_dir_t * rddir_p, char * fn);
 lv_fs_res_t lv_fs_dir_close (lv_fs_dir_t * rddir_p);
 
 /**
- * Get the free and total size of a driver in kB
+ * Get the free and total tile_count of a driver in kB
  * @param letter the driver letter
- * @param total_p pointer to store the total size [kB]
- * @param free_p pointer to store the free size [kB]
+ * @param total_p pointer to store the total tile_count [kB]
+ * @param free_p pointer to store the free tile_count [kB]
  * @return LV_FS_RES_OK or any error from lv_fs_res_t enum
  */
 lv_fs_res_t lv_fs_free (char letter, uint32_t * total_p, uint32_t * free_p);

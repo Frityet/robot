@@ -36,7 +36,7 @@
  * Get the current status of the competition control.
  *
  * \return The competition control status as a mask of bits with
- * COMPETITION_{ENABLED,AUTONOMOUS,CONNECTED}.
+ * COMPETITION_{ENABLED,CONFIG,CONNECTED}.
  */
 #ifdef __cplusplus
 extern "C" {

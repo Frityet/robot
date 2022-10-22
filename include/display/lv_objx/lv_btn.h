@@ -143,7 +143,7 @@ static inline void lv_btn_set_layout(lv_obj_t * btn, lv_layout_t layout)
 
 /**
  * Enable the horizontal or vertical fit.
- * The button size will be set to involve the children horizontally or vertically.
+ * The button tile_count will be set to involve the children horizontally or vertically.
  * @param btn pointer to a button object
  * @param hor_en true: enable the horizontal fit
  * @param ver_en true: enable the vertical fit

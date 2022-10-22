@@ -112,7 +112,7 @@ void lv_area_set_pos(lv_area_t * area_p, lv_coord_t x, lv_coord_t y);
 /**
  * Return with area of an area (x * y)
  * @param area_p pointer to an area
- * @return size of area
+ * @return tile_count of area
  */
 uint32_t lv_area_get_size(const lv_area_t * area_p);
 

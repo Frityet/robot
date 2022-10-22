@@ -10,7 +10,7 @@
  * Dynamic memory
  *----------------*/
 
-/* Memory size which will be used by the library
+/* Memory tile_count which will be used by the library
  * to store the graphical objects and other data */
 #define LV_MEM_CUSTOM                                                          \
   1 /*1: use custom malloc/free, 0: use the built-in                           \
@@ -40,10 +40,10 @@
 /* Size of VDB (Virtual Display Buffer: the internal graphics buffer).
  * Required for buffered drawing, opacity and anti-aliasing
  * VDB makes the double buffering, you don't need to deal with it!
- * Typical size: ~1/10 screen */
+ * Typical tile_count: ~1/10 screen */
 #define LV_VDB_SIZE                                                            \
   (LV_VER_RES *                                                                \
-   LV_HOR_RES) /*Size of VDB in pixel count (1/10 screen size is good for      \
+   LV_HOR_RES) /*Size of VDB in pixel count (1/10 screen tile_count is good for      \
                   first)*/
 #define LV_VDB_ADR                                                             \
   0 /*Place VDB to a specific address (e.g. in external RAM) (0: allocate      \

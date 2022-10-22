@@ -47,7 +47,7 @@ typedef struct
     uint16_t lang_txt_id;       /*The ID of the image to display. */
 #endif
     uint8_t src_type  :2;       /*See: lv_img_src_t*/
-    uint8_t auto_size :1;       /*1: automatically set the object size to the image size*/
+    uint8_t auto_size :1;       /*1: automatically set the object tile_count to the image tile_count*/
     uint8_t cf :5;              /*Color format from `lv_img_color_format_t`*/
 } lv_img_ext_t;
 
@@ -96,10 +96,10 @@ static inline void lv_img_set_file(lv_obj_t * img, const char * fn)
 }
 
 /**
- * Enable the auto size feature.
- * If enabled the object size will be same as the picture size.
+ * Enable the auto tile_count feature.
+ * If enabled the object tile_count will be same as the picture tile_count.
  * @param img pointer to an image
- * @param en true: auto size enable, false: auto size disable
+ * @param en true: auto tile_count enable, false: auto tile_count disable
  */
 void lv_img_set_auto_size(lv_obj_t * img, bool autosize_en);
 
@@ -152,9 +152,9 @@ uint16_t lv_img_get_src_id(lv_obj_t * img);
 #endif
 
 /**
- * Get the auto size enable attribute
+ * Get the auto tile_count enable attribute
  * @param img pointer to an image
- * @return true: auto size is enabled, false: auto size is disabled
+ * @return true: auto tile_count is enabled, false: auto tile_count is disabled
  */
 bool lv_img_get_auto_size(const lv_obj_t * img);
 

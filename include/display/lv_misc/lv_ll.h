@@ -44,7 +44,7 @@ typedef struct
 /**
  * Initialize linked list
  * @param ll_dsc pointer to ll_dsc variable
- * @param node_size the size of 1 node in bytes
+ * @param node_size the tile_count of 1 node in bytes
  */
 void lv_ll_init(lv_ll_t * ll_p, uint32_t node_size);
 

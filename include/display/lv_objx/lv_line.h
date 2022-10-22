@@ -67,10 +67,10 @@ lv_obj_t * lv_line_create(lv_obj_t * par, const lv_obj_t * copy);
 void lv_line_set_points(lv_obj_t * line, const lv_point_t * point_a, uint16_t point_num);
 
 /**
- * Enable (or disable) the auto-size option. The size of the object will fit to its points.
+ * Enable (or disable) the auto-tile_count option. The tile_count of the object will fit to its points.
  * (set width to x max and height to y max)
  * @param line pointer to a line object
- * @param en true: auto size is enabled, false: auto size is disabled
+ * @param en true: auto tile_count is enabled, false: auto tile_count is disabled
  */
 void lv_line_set_auto_size(lv_obj_t * line, bool en);
 
@@ -110,9 +110,9 @@ static inline void lv_line_set_upscale(lv_obj_t * line, bool upcale)
  *====================*/
 
 /**
- * Get the auto size attribute
+ * Get the auto tile_count attribute
  * @param line pointer to a line object
- * @return true: auto size is enabled, false: disabled
+ * @return true: auto tile_count is enabled, false: disabled
  */
 bool lv_line_get_auto_size(const lv_obj_t * line);
 

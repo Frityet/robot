@@ -33,9 +33,9 @@ namespace pros {
  * ! Different font sizes that can be used in printing text.
  */
 typedef enum {
-    E_TEXT_SMALL = 0, ///< Small text font size
-    E_TEXT_MEDIUM, ///< Normal/Medium text font size
-    E_TEXT_LARGE, ///< Large text font size
+    E_TEXT_SMALL = 0, ///< Small text font tile_count
+    E_TEXT_MEDIUM, ///< Normal/Medium text font tile_count
+    E_TEXT_LARGE, ///< Large text font tile_count
     E_TEXT_MEDIUM_CENTER, ///< Medium centered text
     E_TEXT_LARGE_CENTER ///< Large centered text
 } text_format_e_t;
@@ -213,7 +213,7 @@ uint32_t screen_scroll_area(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int1
  * \param x1, y1	The (x,y) coordinates of the second corner of the
  * 						rectangular region of the screen
  * \param buf		Off-screen buffer containing screen data
- * \param stride	Off-screen buffer width in pixels, such that image size
+ * \param stride	Off-screen buffer width in pixels, such that image tile_count
  * 						is stride-padding
  * 
  * \return 1 if there were no errors, or PROS_ERR if an error occured 

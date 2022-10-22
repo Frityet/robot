@@ -56,7 +56,7 @@ typedef struct
     uint8_t opened :1;                   /*1: The list is opened (handled by the library)*/
     uint8_t draw_arrow :1;               /*1: Draw arrow*/
 
-    lv_coord_t fix_height;               /*Height of the ddlist when opened. (0: auto-size)*/
+    lv_coord_t fix_height;               /*Height of the ddlist when opened. (0: auto-tile_count)*/
 } lv_ddlist_ext_t;
 
 enum {
@@ -113,7 +113,7 @@ void lv_ddlist_set_action(lv_obj_t * ddlist, lv_action_t action);
  * Set the fix height for the drop down list
  * If 0 then the opened ddlist will be auto. sized else the set height will be applied.
  * @param ddlist pointer to a drop down list
- * @param h the height when the list is opened (0: auto size)
+ * @param h the height when the list is opened (0: auto tile_count)
  */
 void lv_ddlist_set_fix_height(lv_obj_t * ddlist, lv_coord_t h);
 
@@ -198,7 +198,7 @@ lv_action_t lv_ddlist_get_action(const lv_obj_t * ddlist);
 /**
  * Get the fix height value.
  * @param ddlist pointer to a drop down list object
- * @return the height if the ddlist is opened (0: auto size)
+ * @return the height if the ddlist is opened (0: auto tile_count)
  */
 lv_coord_t lv_ddlist_get_fix_height(const lv_obj_t * ddlist);
 

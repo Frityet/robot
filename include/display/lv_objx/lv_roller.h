@@ -199,7 +199,7 @@ static inline uint16_t lv_roller_get_anim_time(const lv_obj_t * roller)
 /**
  * Get the auto width set attribute
  * @param roller pointer to a roller object
- * @return true: auto size enabled; false: manual width settings enabled
+ * @return true: auto tile_count enabled; false: manual width settings enabled
  */
 bool lv_roller_get_hor_fit(const lv_obj_t *roller);
 

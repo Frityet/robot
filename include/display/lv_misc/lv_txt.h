@@ -55,14 +55,14 @@ typedef uint8_t lv_txt_cmd_state_t;
  **********************/
 
 /**
- * Get size of a text
+ * Get tile_count of a text
  * @param size_res pointer to a 'point_t' variable to store the result
  * @param text pointer to a text
  * @param font pinter to font of the text
  * @param letter_space letter space of the text
  * @param line_space line space of the text
  * @param flags settings for the text from 'txt_flag_t' enum
- * @param max_width max with of the text (break the lines to fit this size) Set CORD_MAX to avoid line breaks
+ * @param max_width max with of the text (break the lines to fit this tile_count) Set CORD_MAX to avoid line breaks
  */
 void lv_txt_get_size(lv_point_t * size_res, const char * text, const lv_font_t * font,
                      lv_coord_t letter_space, lv_coord_t line_space, lv_coord_t max_width, lv_txt_flag_t flag);
@@ -72,7 +72,7 @@ void lv_txt_get_size(lv_point_t * size_res, const char * text, const lv_font_t *
  * @param txt a '\0' terminated string
  * @param font pointer to a font
  * @param letter_space letter space
- * @param max_width max with of the text (break the lines to fit this size) Set CORD_MAX to avoid line breaks
+ * @param max_width max with of the text (break the lines to fit this tile_count) Set CORD_MAX to avoid line breaks
  * @param flags settings for the text from 'txt_flag_type' enum
  * @return the index of the first char of the new line (in byte index not letter index. With UTF-8 they are different)
  */
@@ -122,7 +122,7 @@ void lv_txt_cut(char * txt, uint32_t pos, uint32_t len);
  ***************************************************************/
 
 /**
- * Give the size of an encoded character
+ * Give the tile_count of an encoded character
  * @param str pointer to a character in a string
  * @return length of the encoded character (1,2,3 ...). O in invalid
  */

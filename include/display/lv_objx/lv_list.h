@@ -113,7 +113,7 @@ lv_obj_t * lv_list_add(lv_obj_t * list, const void * img_src, const char * txt, 
 /**
  * Remove the index of the button in the list
  * @param list pointer to a list object
- * @param index pointer to a the button's index in the list, index must be 0 <= index < lv_list_ext_t.size
+ * @param index pointer to a the button's index in the list, index must be 0 <= index < lv_list_ext_t.tile_count
  * @return true: successfully deleted
  */
 bool lv_list_remove(const lv_obj_t * list, uint32_t index);

@@ -6,13 +6,17 @@
 
 #pragma once
 
+///All measurements will be in CENTIMETRES because the METRIC SYSTEM is what GOD USES
+
 #include "src/common.h"
+
+#include "math.h"
 
 static const struct {
     Port_t controller, intake[2], flywheel[2];
     union {
         struct {
-            struct {
+            struct DrivetrainSide {
                 Port_t back, front;
             } right, left;
         };
@@ -38,11 +42,64 @@ static const struct {
     .pneumatics = { 'A', 'B' }
 };
 
+struct RotationPoint {
+    uint32 time;
+    uint16 rotation;
+};
+
+static uint32 get_delay_woodenfloor(uint16 x)
+{
+    return (0.000108 * pow(x, 2)) + (0.102 * x) - 3.64;
+}
+
 static const struct {
-    Point_t size, tile_size;
+    struct {
+        uint32 tile_size, tile_count;
+    } field;
     int8    flipper_strength;
-} AUTONOMOUS = {
-    .size = { (uint32)365.76, (uint32)365.76 },
-    .tile_size = { (uint32)60.96, (uint32)60.96 },
-    .flipper_strength = 32
+    uint32  (*get_delay)(uint16 degrees);
+    struct RotationPoint time_to_rotate[16];
+} CONFIG = {
+    .field = {
+        .tile_size = (uint32) 60.96,
+        .tile_count = 6,
+    },
+
+    .get_delay = get_delay_woodenfloor,
+
+    .flipper_strength = 127,
+    .time_to_rotate = {
+        {
+            .time = 225,
+            .rotation = 23
+        },
+        {
+            .time = 240,
+            .rotation = 28,
+        },
+        {
+            .time = 245,
+            .rotation = 30
+        },
+        {
+            .time = 490,
+            .rotation = 90 //67 before
+        },
+        {
+            .time = 980,
+            .rotation = 200
+        },
+        {
+            .time = 1050,
+            .rotation = 147,
+        },
+    }
+};
+
+static const struct {
+    uint32 wheel_radius;
+    Point_t dimensions;
+} ROBOT = {
+   .wheel_radius = 4,
+   .dimensions = { 25, 25.5 }
 };

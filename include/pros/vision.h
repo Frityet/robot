@@ -201,10 +201,10 @@ vision_color_code_t vision_create_color_code(uint8_t port, const uint32_t sig_id
  * \param port
  *        The V5 port number from 1-21
  * \param size_id
- *        The object to read from a list roughly ordered by object size
+ *        The object to read from a list roughly ordered by object tile_count
  *        (0 is the largest item, 1 is the second largest, etc.)
  *
- * \return The vision_object_s_t object corresponding to the given size id, or
+ * \return The vision_object_s_t object corresponding to the given tile_count id, or
  * PROS_ERR if an error occurred.
  */
 vision_object_s_t vision_get_by_size(uint8_t port, const uint32_t size_id);
@@ -223,7 +223,7 @@ vision_object_s_t vision_get_by_size(uint8_t port, const uint32_t size_id);
  * \param port
  *        The V5 port number from 1-21
  * \param size_id
- *        The object to read from a list roughly ordered by object size
+ *        The object to read from a list roughly ordered by object tile_count
  *        (0 is the largest item, 1 is the second largest, etc.)
  * \param signature
  *        The signature ID [1-7] for which an object will be returned.
@@ -245,7 +245,7 @@ vision_object_s_t vision_get_by_sig(uint8_t port, const uint32_t size_id, const 
  * \param port
  *        The V5 port number from 1-21
  * \param size_id
- *        The object to read from a list roughly ordered by object size
+ *        The object to read from a list roughly ordered by object tile_count
  *        (0 is the largest item, 1 is the second largest, etc.)
  * \param color_code
  *        The vision_color_code_t for which an object will be returned
@@ -327,7 +327,7 @@ int32_t vision_print_signature(const vision_signature_s_t sig);
  * \param port
  *        The V5 port number from 1-21
  * \param size_id
- *        The object to read from a list roughly ordered by object size
+ *        The object to read from a list roughly ordered by object tile_count
  *        (0 is the largest item, 1 is the second largest, etc.)
  * \param object_count
  *        The number of objects to read
@@ -358,7 +358,7 @@ int32_t vision_read_by_size(uint8_t port, const uint32_t size_id, const uint32_t
  * \param object_count
  *        The number of objects to read
  * \param size_id
- *        The object to read from a list roughly ordered by object size
+ *        The object to read from a list roughly ordered by object tile_count
  *        (0 is the largest item, 1 is the second largest, etc.)
  * \param signature
  *        The signature ID [1-7] for which objects will be returned.
@@ -388,7 +388,7 @@ int32_t vision_read_by_sig(uint8_t port, const uint32_t size_id, const uint32_t 
  * \param object_count
  *        The number of objects to read
  * \param size_id
- *        The object to read from a list roughly ordered by object size
+ *        The object to read from a list roughly ordered by object tile_count
  *        (0 is the largest item, 1 is the second largest, etc.)
  * \param color_code
  *        The vision_color_code_t for which objects will be returned

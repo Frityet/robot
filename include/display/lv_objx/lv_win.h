@@ -129,9 +129,9 @@ lv_res_t lv_win_close_action(lv_obj_t * btn);
 void lv_win_set_title(lv_obj_t * win, const char * title);
 
 /**
- * Set the control button size of a window
+ * Set the control button tile_count of a window
  * @param win pointer to a window object
- * @return control button size
+ * @return control button tile_count
  */
 void lv_win_set_btn_size(lv_obj_t * win, lv_coord_t size);
 
@@ -183,9 +183,9 @@ const char * lv_win_get_title(const lv_obj_t * win);
 lv_obj_t * lv_win_get_content(const lv_obj_t * win);
 
 /**
- * Get the control button size of a window
+ * Get the control button tile_count of a window
  * @param win pointer to a window object
- * @return control button size
+ * @return control button tile_count
  */
 lv_coord_t lv_win_get_btn_size(const lv_obj_t * win);
 

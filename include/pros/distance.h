@@ -61,7 +61,7 @@ int32_t distance_get(uint8_t port);
 int32_t distance_get_confidence(uint8_t port);
 
 /**
- * Get the current guess at relative object size
+ * Get the current guess at relative object tile_count
  *
  * This is a value that has a range of 0 to 400.
  * A 18" x 30" grey card will return a value of approximately 75
@@ -73,7 +73,7 @@ int32_t distance_get_confidence(uint8_t port);
  * ENODEV - The port cannot be configured as an Distance Sensor
  *
  * \param  port The V5 Distance Sensor port number from 1-21
- * \return The size value or PROS_ERR if the operation failed, setting
+ * \return The tile_count value or PROS_ERR if the operation failed, setting
  * errno.
  */
 int32_t distance_get_object_size(uint8_t port);

@@ -166,7 +166,7 @@ void lv_ta_set_one_line(lv_obj_t * ta, bool en);
 /**
  * Set the alignment of the text area.
  * In one line mode the text can be scrolled only with `LV_LABEL_ALIGN_LEFT`.
- * This function should be called if the size of text area changes.
+ * This function should be called if the tile_count of text area changes.
  * @param ta pointer to a text are object
  * @param align the desired alignment from `lv_label_align_t`. (LV_LABEL_ALIGN_LEFT/CENTER/RIGHT)
  */

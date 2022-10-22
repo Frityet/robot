@@ -10,7 +10,7 @@
    Dynamic memory
  *===================*/
 
-/* Memory size which will be used by the library
+/* Memory tile_count which will be used by the library
  * to store the graphical objects and other data */
 #ifndef LV_MEM_CUSTOM
 #define LV_MEM_CUSTOM      0                /*1: use custom malloc/free, 0: use the built-in lv_mem_alloc/lv_mem_free*/
@@ -96,7 +96,7 @@
  * VDB is required for: buffered drawing, opacity, anti-aliasing and shadows
  * Learn more: https://docs.littlevgl.com/#Drawing*/
 
-/* Size of the VDB in pixels. Typical size: ~1/10 screen. Must be >= LV_HOR_RES
+/* Size of the VDB in pixels. Typical tile_count: ~1/10 screen. Must be >= LV_HOR_RES
  * Setting it to 0 will disable VDB and `disp_drv.disp_fill` and `disp_drv.disp_map` functions
  * will be called to draw to the frame buffer directly*/
 #ifndef LV_VDB_SIZE
@@ -106,7 +106,7 @@
  /* Bit-per-pixel of VDB. Useful for monochrome or non-standard color format displays.
   * Special formats are handled with `disp_drv.vdb_wr`)*/
 #ifndef LV_VDB_PX_BPP
-#define LV_VDB_PX_BPP       LV_COLOR_SIZE       /*LV_COLOR_SIZE comes from LV_COLOR_DEPTH below to set 8, 16 or 32 bit pixel size automatically */
+#define LV_VDB_PX_BPP       LV_COLOR_SIZE       /*LV_COLOR_SIZE comes from LV_COLOR_DEPTH below to set 8, 16 or 32 bit pixel tile_count automatically */
 #endif
 
  /* Place VDB to a specific address (e.g. in external RAM)
@@ -226,7 +226,7 @@
 #define LV_ATTRIBUTE_TASK_HANDLER               /* Define a custom attribute to `lv_task_handler` function */
 #endif
 #ifndef LV_ATTRIBUTE_MEM_ALIGN
-#define LV_ATTRIBUTE_MEM_ALIGN                  /* With size optimization (-Os) the compiler might not align data to 4 or 8 byte boundary. This alignment will be explicitly applied where needed.*/
+#define LV_ATTRIBUTE_MEM_ALIGN                  /* With tile_count optimization (-Os) the compiler might not align data to 4 or 8 byte boundary. This alignment will be explicitly applied where needed.*/
 #endif
 #ifndef LV_COMPILER_VLA_SUPPORTED
 #define LV_COMPILER_VLA_SUPPORTED            1  /* 1: Variable length array is supported*/

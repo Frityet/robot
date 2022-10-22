@@ -8,6 +8,7 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include <stdnoreturn.h>
 
 #include "api.h"
 
@@ -43,7 +44,7 @@ enum State {
 };
 
 typedef struct {
-    uint32 x, y;
+    double x, y;
 } Point_t;
 
 __printflike(2, 3)

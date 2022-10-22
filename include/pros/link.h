@@ -174,7 +174,7 @@ uint32_t link_raw_transmittable_size(uint8_t port);
  *      Bytes of data to be read to the destination buffer
  * 
  * \return PROS_ERR if port is not a link, and the successfully transmitted 
- * data size if it succeeded.
+ * data tile_count if it succeeded.
  */
 uint32_t link_transmit_raw(uint8_t port, void* data, uint16_t data_size);
 
@@ -186,7 +186,7 @@ uint32_t link_transmit_raw(uint8_t port, void* data, uint16_t data_size);
  * ENXIO - The given value is not within the range of V5 ports (1-21).
  * ENODEV - The port cannot be configured as a radio.
  * ENXIO - The sensor is still calibrating, or no link is connected via the radio.
- * EINVAL - The destination given is NULL, or the size given is larger than the FIFO buffer 
+ * EINVAL - The destination given is NULL, or the tile_count given is larger than the FIFO buffer
  * or destination buffer. 
  * 
  * \param port 
@@ -197,7 +197,7 @@ uint32_t link_transmit_raw(uint8_t port, void* data, uint16_t data_size);
  *      Bytes of data to be read to the destination buffer
  * 
  * \return PROS_ERR if port is not a link, and the successfully received 
- * data size if it succeeded.
+ * data tile_count if it succeeded.
  */
 uint32_t link_receive_raw(uint8_t port, void* dest, uint16_t data_size);
 
@@ -221,7 +221,7 @@ uint32_t link_receive_raw(uint8_t port, void* dest, uint16_t data_size);
  *      Bytes of data to be read to the destination buffer
  * 
  * \return PROS_ERR if port is not a link, and the successfully transmitted 
- * data size if it succeeded.
+ * data tile_count if it succeeded.
  */
 uint32_t link_transmit(uint8_t port, void* data, uint16_t data_size);
 
@@ -233,9 +233,9 @@ uint32_t link_transmit(uint8_t port, void* data, uint16_t data_size);
  * ENXIO - The given value is not within the range of V5 ports (1-21).
  * ENODEV - The port cannot be configured as a radio.
  * ENXIO - The sensor is still calibrating, or no link is connected via the radio.
- * EINVAL - The destination given is NULL, or the size given is larger than the FIFO buffer 
+ * EINVAL - The destination given is NULL, or the tile_count given is larger than the FIFO buffer
  * or destination buffer. 
- * EBADMSG - Protocol error related to start byte, data size, or checksum.
+ * EBADMSG - Protocol error related to start byte, data tile_count, or checksum.
  * 
  * \param port 
  *      The port of the radio for the intended link.
@@ -245,7 +245,7 @@ uint32_t link_transmit(uint8_t port, void* data, uint16_t data_size);
  *      Bytes of data to be read to the destination buffer
  * 
  * \return PROS_ERR if port is not a link or protocol error, and the successfully 
- * transmitted data size if it succeeded.
+ * transmitted data tile_count if it succeeded.
  */
 uint32_t link_receive(uint8_t port, void* dest, uint16_t data_size);
 
@@ -262,7 +262,7 @@ uint32_t link_receive(uint8_t port, void* dest, uint16_t data_size);
  *      The port of the radio for the intended link.
  * 
  * \return PROS_ERR if port is not a link, and the successfully received 
- * data size if it succeeded.
+ * data tile_count if it succeeded.
  */
 uint32_t link_clear_receive_buf(uint8_t port);
 

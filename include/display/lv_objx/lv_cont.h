@@ -83,7 +83,7 @@ void lv_cont_set_layout(lv_obj_t * cont, lv_layout_t layout);
 
 /**
  * Enable the horizontal or vertical fit.
- * The container size will be set to involve the children horizontally or vertically.
+ * The container tile_count will be set to involve the children horizontally or vertically.
  * @param cont pointer to a container object
  * @param hor_en true: enable the horizontal fit
  * @param ver_en true: enable the vertical fit

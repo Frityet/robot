@@ -40,7 +40,7 @@ extern "C" {
 #endif
 
 
-/* The size of VDB in bytes.
+/* The tile_count of VDB in bytes.
  * (LV_VDB_SIZE * LV_VDB_PX_BPP) >> 3): just divide by 8 to convert bits to bytes
  * (((LV_VDB_SIZE * LV_VDB_PX_BPP) & 0x7) ? 1 : 0): add an extra byte to round up.
  *    E.g. if LV_VDB_SIZE = 10 and LV_VDB_PX_BPP = 1 -> 10 bits -> 2 bytes*/
@@ -73,7 +73,7 @@ void lv_vdb_flush(void);
 
 /**
  * Set the address of VDB buffer(s) manually. To use this set `LV_VDB_ADR` (and `LV_VDB2_ADR`) to `LV_VDB_ADR_INV` in `lv_conf.h`.
- * It should be called before `lv_init()`. The size of the buffer should be: `LV_VDB_SIZE_IN_BYTES`
+ * It should be called before `lv_init()`. The tile_count of the buffer should be: `LV_VDB_SIZE_IN_BYTES`
  * @param buf1 address of the VDB.
  * @param buf2 address of the second buffer. `NULL` if `LV_VDB_DOUBLE  0`
  */

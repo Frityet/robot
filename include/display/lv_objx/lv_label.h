@@ -39,12 +39,12 @@ extern "C" {
 /*Long mode behaviors. Used in 'lv_label_ext_t' */
 enum
 {
-    LV_LABEL_LONG_EXPAND,   /*Expand the object size to the text size*/
+    LV_LABEL_LONG_EXPAND,   /*Expand the object tile_count to the text tile_count*/
     LV_LABEL_LONG_BREAK,    /*Keep the object width, break the too long lines and expand the object height*/
-    LV_LABEL_LONG_SCROLL,   /*Expand the object size and scroll the text on the parent (start_motors the label object)*/
-    LV_LABEL_LONG_DOT,      /*Keep the size and write dots at the end if the text is too long*/
-    LV_LABEL_LONG_ROLL,     /*Keep the size and roll the text infinitely*/
-    LV_LABEL_LONG_CROP,     /*Keep the size and crop the text out of it*/
+    LV_LABEL_LONG_SCROLL,   /*Expand the object tile_count and scroll the text on the parent (start_motors the label object)*/
+    LV_LABEL_LONG_DOT,      /*Keep the tile_count and write dots at the end if the text is too long*/
+    LV_LABEL_LONG_ROLL,     /*Keep the tile_count and roll the text infinitely*/
+    LV_LABEL_LONG_CROP,     /*Keep the tile_count and crop the text out of it*/
 };
 typedef uint8_t lv_label_long_mode_t;
 
@@ -111,7 +111,7 @@ void lv_label_set_text(lv_obj_t * label, const char * text);
  * Memory will be allocated to store the array by the label.
  * @param label pointer to a label object
  * @param array array of characters or NULL to refresh the label
- * @param size the size of 'array' in bytes
+ * @param size the tile_count of 'array' in bytes
  */
 void lv_label_set_array_text(lv_obj_t * label, const char * array, uint16_t size);
 
@@ -133,10 +133,10 @@ void lv_label_set_text_id(lv_obj_t * label, uint32_t txt_id);
 #endif
 
 /**
- * Set the behavior of the label with longer text then the object size
+ * Set the behavior of the label with longer text then the object tile_count
  * @param label pointer to a label object
  * @param long_mode the new mode from 'lv_label_long_mode' enum.
- *                  In LV_LONG_BREAK/LONG/ROLL the size of the label should be set AFTER this function
+ *                  In LV_LONG_BREAK/LONG/ROLL the tile_count of the label should be set AFTER this function
  */
 void lv_label_set_long_mode(lv_obj_t * label, lv_label_long_mode_t long_mode);
 

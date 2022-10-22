@@ -40,13 +40,13 @@ namespace pros {
 // Default tasks such as autonomous() inherit this priority.
 #define TASK_PRIORITY_DEFAULT 8
 
-// The recommended stack size for a new task. This stack size is used for
+// The recommended stack tile_count for a new task. This stack tile_count is used for
 // default tasks such as autonomous(). This equates to 32,768 bytes, or 128
-// times the default stack size for a task in PROS 2.
+// times the default stack tile_count for a task in PROS 2.
 #define TASK_STACK_DEPTH_DEFAULT 0x2000
 
-// The minimal stack size for a task. This equates to 2048 bytes, or 8 times the
-// default stack size for a task in PROS 2.
+// The minimal stack tile_count for a task. This equates to 2048 bytes, or 8 times the
+// default stack tile_count for a task in PROS 2.
 #define TASK_STACK_DEPTH_MIN 0x200
 
 // The maximum number of characters allowed in a task's name.

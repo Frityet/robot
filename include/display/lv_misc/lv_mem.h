@@ -66,7 +66,7 @@ void lv_mem_init(void);
 
 /**
  * Allocate a memory dynamically
- * @param size size of the memory to allocate in bytes
+ * @param size tile_count of the memory to allocate in bytes
  * @return pointer to the allocated memory
  */
 void * lv_mem_alloc(uint32_t size);
@@ -78,10 +78,10 @@ void * lv_mem_alloc(uint32_t size);
 void lv_mem_free(const void * data);
 
 /**
- * Reallocate a memory with a new size. The old content will be kept.
+ * Reallocate a memory with a new tile_count. The old content will be kept.
  * @param data pointer to an allocated memory.
  * Its content will be copied to the new memory block and freed
- * @param new_size the desired new size in byte
+ * @param new_size the desired new tile_count in byte
  * @return pointer to the new memory
  */
 void * lv_mem_realloc(void * data_p, uint32_t new_size);
@@ -99,9 +99,9 @@ void lv_mem_defrag(void);
 void lv_mem_monitor(lv_mem_monitor_t * mon_p);
 
 /**
- * Give the size of an allocated memory
+ * Give the tile_count of an allocated memory
  * @param data pointer to an allocated memory
- * @return the size of data memory in bytes
+ * @return the tile_count of data memory in bytes
  */
 uint32_t lv_mem_get_size(const void * data);
 

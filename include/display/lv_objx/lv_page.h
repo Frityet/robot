@@ -66,7 +66,7 @@ typedef struct
         lv_sb_mode_t mode:3;        /*Scrollbar visibility from 'lv_page_sb_mode_t'*/
     } sb;
     struct {
-        uint16_t state;  /*Store the current size of the edge flash effect*/
+        uint16_t state;  /*Store the current tile_count of the edge flash effect*/
         lv_style_t *style;    /*Style of edge flash effect (usually homogeneous circle)*/
         uint8_t enabled    :1;     /*1: Show a flash animation on the edge*/
         uint8_t top_ip     :1;     /*Used internally to show that top most position is reached (flash is In Progress)*/
@@ -175,7 +175,7 @@ void lv_page_set_edge_flash(lv_obj_t * page, bool en);
 
 /**
  * Set the fit attribute of the scrollable part of a page.
- * It means it can set its size automatically to involve all children.
+ * It means it can set its tile_count automatically to involve all children.
  * (Can be set separately horizontally and vertically)
  * @param page pointer to a page object
  * @param hor_en true: enable horizontal fit

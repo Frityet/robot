@@ -62,13 +62,13 @@ static const struct {
     struct RotationPoint time_to_rotate[16];
 } CONFIG = {
     .field = {
-        .tile_size = (uint32) 60.96,
+.96,
         .tile_count = 6,
     },
 
     .get_delay = get_delay_woodenfloor,
 
-    .flipper_strength = 127,
+    .flipper_strength = (int8)(127.0 / 2.5),
     .time_to_rotate = {
         {
             .time = 225,
@@ -101,14 +101,17 @@ static const struct {
     uint32 wheel_radius;
     Point_t dimensions;
     uint64 pneumatic_wait;
-    uint8 launcher_speeds[3];
+    struct {
+        uint8 high, low;
+    } launcher_speeds;
+    uint8 intake_speed;
 } ROBOT = {
    .wheel_radius = 4,
    .dimensions = { 18, 25.5 },
-   .pneumatic_wait = 256,
+   .pneumatic_wait = 128,
    .launcher_speeds = {
-       90,
-       80,
-       70
-   }
+       .high = 80,
+       .low =  60
+   },
+   .intake_speed = (int8)(127.0 / 2.0)
 };

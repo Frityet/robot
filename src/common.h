@@ -69,4 +69,4 @@ static void println(uint8 ln, const char *restrict fmt, ...)
 
 #define print(...) println(0, __VA_ARGS__)
 
-
+#define yield delay(10)

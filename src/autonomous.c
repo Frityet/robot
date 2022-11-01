@@ -50,27 +50,30 @@ static uint16 get_rotation()
 
 static void rotate(uint16 deg)
 {
-    int8 rot = 127;
-
     Port_t  left_f  = PORTS.drive.left.front,
             left_b  = PORTS.drive.left.back,
             right_f = PORTS.drive.right.front,
             right_b = PORTS.drive.right.back;
 
-    motor_move(left_f, -rot);
-    motor_move(left_b, rot);
-    motor_move(right_f, -rot);
-    motor_move(right_b, rot);
+    motor_move(left_f, -127);
+    motor_move(left_b, 127);
+    motor_move(right_f, -127);
+    motor_move(right_b, 127);
 
     uint16 current = get_rotation();
-    while (deg - current > 0 || deg - current < 1) {
-        print("%d\n", current = get_rotation());
+    while (deg - current > -1 || deg - current < 1) {
+        print("%llf\n", current = get_rotation());
         delay(10);
     }
 
     set_drive(0);
+}
 
-
+void drive_for(uint64 millis, int8 voltage)
+{
+    set_drive(voltage);
+    delay(millis);
+    set_drive(0);
 }
 
 ///
@@ -81,26 +84,29 @@ void autonomous(void)
 {
     set_drive_units(E_MOTOR_ENCODER_DEGREES);
 
-    printf("Moving flipper");
-    motor_move(PORTS.intake[0], CONFIG.flipper_strength);
-    delay(1000);
-    motor_move(PORTS.intake[0], 0);
+    drive_for(100, 127);
 
-    rotate(45);
-
-    motor_move(PORTS.flywheel[0], 127 / 2);
-    motor_move(PORTS.flywheel[1], -127 / 2);
+    motor_move(PORTS.intake[1], CONFIG.flipper_strength);
     delay(1000);
+    motor_move(PORTS.intake[1], 0);
+
+    drive_for(100, -127);
+//    rotate(90);
+
+    motor_move(PORTS.flywheel[0], (int8)(127.0 * 0.75));
+    motor_move(PORTS.flywheel[1], (int8)(-127.0 * 0.75));
+
+    yield;
 
     println(2, "Pneumatics - On");
-    adi_digital_write(PORTS.pneumatics, true);
-    delay(1000);
-    adi_digital_write(PORTS.pneumatics, false);
+    adi_digital_write(PORTS.pneumatics, off);
+    delay(ROBOT.pneumatic_wait);
+    adi_digital_write(PORTS.pneumatics, on);
     println(2, "Pneumatics - Off");
-
+    delay(ROBOT.pneumatic_wait);
     println(2, "Pneumatics - On");
-    adi_digital_write(PORTS.pneumatics, true);
-    delay(1000);
-    adi_digital_write(PORTS.pneumatics, false);
+    adi_digital_write(PORTS.pneumatics, off);
+    delay(ROBOT.pneumatic_wait);
+    adi_digital_write(PORTS.pneumatics, on);
     println(2, "Pneumatics - Off");
 }

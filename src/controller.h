@@ -61,6 +61,7 @@ struct ControllerConfig {
     struct Controller_DigitalActionGroup {
         DigitalControllerAction_f *all_off;
         struct {
+            bool hold;
             DigitalControllerAction_f *on, *off;
         } actions[ControllerActionGroup_COUNT];
     } digital[3];

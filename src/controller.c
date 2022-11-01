@@ -24,7 +24,7 @@ static bool get_digitals(struct Controller_DigitalActionGroup group[static 1], c
     bool any_active = false;
 
     for (int32 i = 0; i < 4; i++)
-        if (controller_get_digital_new_press(E_CONTROLLER_MASTER, offset + i)) {
+        if ((group->actions[i].hold ? controller_get_digital : controller_get_digital_new_press)(E_CONTROLLER_MASTER, offset + i)) {
             any_active = true;
             NN(group->actions[i].on)();
         } else NN(group->actions[i].off)();

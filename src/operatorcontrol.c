@@ -7,6 +7,8 @@
 void disabled() {}
 void competition_initialize(){}
 
+adi_gyro_t gyro = 0;
+
 void initialize()
 {
     lcd_initialize();
@@ -18,9 +20,10 @@ void initialize()
     adi_digital_write(PORTS.pneumatics, on);
     adi_digital_write(PORTS.launcher, on);
 
-    lcd_print(0, "Waheguru Waheguru Waheguru Ji,");
-    lcd_print(1, "Satnam Satnam Satnam Ji");
+//    lcd_print(0, "Waheguru Waheguru Waheguru Ji,");
+//    lcd_print(1, "Satnam Satnam Satnam Ji");
 
+    gyro = adi_gyro_init(PORTS.gyroscope, 1);
     yield;
 }
 
